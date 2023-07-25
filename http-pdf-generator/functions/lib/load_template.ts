@@ -79,17 +79,17 @@ export async function loadTemplate({
       if (relativePath === "" || relativePath.endsWith("/")) {
         return;
       }
-      if (/\.(txt|md|html)$/.test(relativePath)) {
-        functions.logger.info("Processing file with handlebars", {
-          relativePath,
-        });
-        content = Handlebars.compile(await file.async("text"))(data);
-      } else {
-        functions.logger.info("Copying file as is", {
-          relativePath,
-        });
-        content = await file.async("nodebuffer");
-      }
+      // if (/\.(txt|md|html)$/.test(relativePath)) {
+      //   functions.logger.info("Processing file with handlebars", {
+      //     relativePath,
+      //   });
+      //   content = Handlebars.compile(await file.async("text"))(data);
+      // } else {
+      functions.logger.info("Copying file as is", {
+        relativePath,
+      });
+      content = await file.async("nodebuffer");
+      //}
       const filePath = path.join(temporaryDirectoryPath, relativePath);
       const directoryPath = path.dirname(filePath);
       fs.mkdirSync(directoryPath, { recursive: true });
